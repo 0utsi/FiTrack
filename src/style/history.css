@@ -1,0 +1,67 @@
+.histPanel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Tables with data */
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin:auto;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding:0;
+  width: fit-content;
+  max-height: 3rem;
+  overflow: scroll;
+}
+table tr {
+  border: 1px solid #ddd;
+  padding: 4px;
+}
+table th, table td {
+  padding: 7px;
+  text-align: center;
+  font-size: 12px;
+}
+table th {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.pagination {
+	margin: auto;
+	color: white;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    border-bottom: 2px solid #ddd;
+    display: block;
+    margin-bottom: 1px;
+  }
+  table td {
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    font-size: 13px;
+    text-align: right;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
