@@ -2,7 +2,6 @@ import axios from 'axios'
 import '../style/addCardio.css'
 import { useState } from 'react'
 
-
 const AddCardio = () => {
 
 	const [exercise, setExercise] = useState('')
