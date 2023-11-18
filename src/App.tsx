@@ -1,8 +1,8 @@
 import './App.css'
 import Hist from './components/History/Hist';
-import AddCardio from './components/AddCardio';
-import NavBar from './components/navbar';
+import NavBar from './components/Navbar';
 import { Route,Routes } from 'react-router-dom';
+import AddPanel from './components/AddExercise/AddPanel';
 function App() {
 
 	return (
@@ -10,7 +10,7 @@ function App() {
 			<NavBar/>
 				<div>
 				<Routes>
-					<Route path="/addcardio"  element={<AddCardio/>} />
+					<Route path="/addPanel"  element={<AddPanel />} />
 					<Route path="/history"  element={<Hist />}/>
 				</Routes>
 				</div>
