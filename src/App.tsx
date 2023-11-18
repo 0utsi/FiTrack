@@ -1,5 +1,5 @@
 import './App.css'
-import Hist from './components/History/Hist';
+import History from './components/History/History';
 import NavBar from './components/Navbar';
 import { Route,Routes } from 'react-router-dom';
 import AddPanel from './components/AddExercise/AddPanel';
@@ -12,7 +12,7 @@ function App() {
 				<div>
 				<Routes>
 					<Route path="/addPanel"  element={<AddPanel />} />
-					<Route path="/history"  element={<Hist />}/>
+					<Route path="/history"  element={<History />}/>
 					<Route path="/statistics"  element={<Statistics />}/>
 				</Routes>
 				</div>

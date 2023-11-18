@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Cardio from "../../interfaces/Icardio";
 import '../../style/history.css'
 import Pagination from "@mui/material/Pagination";
+
+
 const CardioH = () => {
 
 	const [cardioData, setCardioData] = useState<Cardio[]>();
