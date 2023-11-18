@@ -3,6 +3,7 @@ import Hist from './components/History/Hist';
 import NavBar from './components/Navbar';
 import { Route,Routes } from 'react-router-dom';
 import AddPanel from './components/AddExercise/AddPanel';
+import Statistics from './components/Statistics/Statistics';
 function App() {
 
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Routes>
 					<Route path="/addPanel"  element={<AddPanel />} />
 					<Route path="/history"  element={<Hist />}/>
+					<Route path="/statistics"  element={<Statistics />}/>
 				</Routes>
 				</div>
 		</div>

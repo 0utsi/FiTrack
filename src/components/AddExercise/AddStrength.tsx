@@ -34,50 +34,42 @@ const AddStrength = () => {
     <div className="panel">
       <Box
         component="form"
-        sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+		sx={{
+			'& .MuiTextField-root': { m: 2, width: '30ch' },
+		}}
         noValidate
         autoComplete="off"
         onSubmit={send}
       >
         <TextField
-          id="exercise"
-          label="Exercise"
-          variant="filled"
-          value={exercise}
-          onChange={(e) => setExercise(e.target.value)}
+			label="Exercise"
+			type="text"
+			value={exercise}
+			onChange={(e) => setExercise(e.target.value)}
         />
         <TextField
-          id="weight"
-          label="Weight [kg]"
-          variant="filled"
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(e.target.value)}
+			label="Weight [kg]"
+			type="number"
+			value={weight}
+			onChange={(e) => setWeight(e.target.value)}
         />
         <TextField
-          id="sets"
-          label="Sets"
-          variant="filled"
-          type="number"
-          value={sets}
-          onChange={(e) => setSets(e.target.value)}
+			label="Sets"
+			type="number"
+			value={sets}
+			onChange={(e) => setSets(e.target.value)}
         />
         <TextField
-          id="repetitions"
-          label="Repetitions"
-          variant="filled"
-          type="number"
-          value={repetitions}
-          onChange={(e) => setRepetitions(e.target.value)}
+			label="Repetitions"
+			type="number"
+			value={repetitions}
+			onChange={(e) => setRepetitions(e.target.value)}
         />
         <TextField
-          id="date"
-          variant="filled"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+			type="date"
+			value={date}
+			onChange={(e) => setDate(e.target.value)}
         />
-
         <SaveIcon type="submit" />
       </Box>
     </div>

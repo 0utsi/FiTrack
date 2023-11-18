@@ -34,44 +34,36 @@ const AddCardio = () => {
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { m: 2, width: '30ch' },
+					color: 'white'
                 }}
                 noValidate
                 autoComplete="off"
                 onSubmit={send}
             >
                 <TextField
-                    id="exercise"
                     label="Exercise"
-                    variant="filled"
                     value={exercise}
                     onChange={(e) => setExercise(e.target.value)}
                 />
                 <TextField
-                    id="distance"
                     label="Distance [m]"
-                    variant="filled"
                     type="number"
                     value={distance}
                     onChange={(e) => setDistance(e.target.value)}
                 />
                 <TextField
-                    id="duration"
                     label="Duration [min]"
-                    variant="filled"
                     type="number"
                     value={duration}
                     onChange={(e) => setDuration(e.target.value)}
                 />
                 <TextField
-                    id="date"
-                    variant="filled"
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                 />
-
-                <SaveIcon type="submit" />
+                <SaveIcon type="submit" className='sendbtn' onClick={send}/>
             </Box>
         </div>
     );
