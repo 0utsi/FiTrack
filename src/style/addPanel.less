@@ -1,11 +1,7 @@
 .panel {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	padding: 14px;
-	border-radius: 1rem;
-	gap: 10px;
-	margin-top: 1rem;
+	border-radius: 0.25rem;
+	margin-top: 0.75rem;
 	-webkit-box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
 	-moz-box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
 	box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
@@ -29,18 +25,27 @@ form {
 	flex-direction: column;
 }
 
-input:focus,
-button:focus {
-    outline: none;
-}
-
-
 .sendbtn {
 	position: relative;
 	float: right;
-
+	&:hover {
+		transform: scale(1.2);
+		cursor: pointer;
+	}
 }
 
 .checkbox-label {
 	color: black;
+}
+
+
+.alert {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1000;
+}
+
+.hide {
+	display: none;
 }

@@ -1,35 +1,46 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
+import '../../style/addPanel.less'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Alert, AlertTitle } from '@mui/material';
 
 const AddStrength = () => {
-  const [exercise, setExercise] = useState('');
-  const [weight, setWeight] = useState('');
-  const [sets, setSets] = useState('');
-  const [repetitions, setRepetitions] = useState('');
-  const [date, setDate] = useState('');
 
-  const send = (e: React.FormEvent) => {
+	const [isSend, setIsSend] = useState(false)
+	const [exercise, setExercise] = useState('');
+	const [weight, setWeight] = useState('');
+	const [sets, setSets] = useState('');
+	const [repetitions, setRepetitions] = useState('');
+	const [date, setDate] = useState('');
 
-    e.preventDefault();
+	const send = (e: React.FormEvent) => {
 
-    axios
-      .post('http://localhost:3000/strength', {
-        exerciseName: exercise,
-        weight: weight,
-        sets: sets,
-        repetitions: repetitions,
-        date: date,
-      })
-      .then((response) => {
-        console.log('Dane zostały wysłane', response.data);
-      })
-      .catch((error) => {
-        console.error('Błąd podczas wysyłania danych:', error);
-      });
-  };
+		e.preventDefault();
+
+		axios
+		.post('http://localhost:3000/strength', {
+			exerciseName: exercise,
+			weight: weight,
+			sets: sets,
+			repetitions: repetitions,
+			date: date,
+		})
+		.then((response) => {
+			const id = window.setInterval(() => hideAlert(id), 3000);
+			setIsSend(true)
+			console.log('Dane zostały wysłane', response.data);
+		})
+		.catch((error) => {
+			console.error('Błąd podczas wysyłania danych:', error);
+		});
+	};
+
+	const hideAlert = (id: number) => {
+		setIsSend(false)
+		clearInterval(id)
+	}
 
   return (
     <div className="panel">
@@ -72,7 +83,10 @@ const AddStrength = () => {
 				onChange={(e) => setDate(e.target.value)}
 			/>
 		</Box>
-			<SaveIcon color="primary" type="submit" onClick={send} />
+			<SaveIcon className='sendbtn' type="submit" onClick={send} />
+			<Alert severity="success" className='alert' style={!isSend ? { display: 'none' } : {}}>
+				<AlertTitle><strong>Success</strong></AlertTitle>Cardio data has been saved successfully.
+			</Alert>
     </div>
   );
 };

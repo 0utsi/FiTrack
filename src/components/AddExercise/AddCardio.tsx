@@ -1,20 +1,21 @@
 import axios from 'axios'
-import '../../style/addPanel.css'
+import '../../style/addPanel.less'
 import { useState } from 'react'
 import SaveIcon from '@material-ui/icons/Save';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { Alert, AlertTitle } from '@mui/material';
+import '../../style/addPanel.less'
 
 const AddCardio = () => {
-
+	const [isSend, setIsSend] = useState(false)
     const [exercise, setExercise] = useState('')
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
     const [date, setDate] = useState('')
 
-    const send = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        console.log("poszlo")
+    const send = () => {
+
         axios.post('http://localhost:3000/cardio', {
             "exerciseName": exercise,
             "distance": distance,
@@ -22,12 +23,19 @@ const AddCardio = () => {
             "date": date
         })
             .then(response => {
+				const id = window.setInterval(() => hideAlert(id), 3000);
+				setIsSend(true)
                 console.log('Dane zostały wysłane', response.data);
             })
             .catch(error => {
                 console.error('Błąd podczas wysyłania danych:', error);
             });
     };
+
+	const hideAlert = (id: number) => {
+		setIsSend(false)
+		clearInterval(id)
+	}
 
     return (
         <div className="panel">
@@ -65,7 +73,10 @@ const AddCardio = () => {
                     onChange={(e) => setDate(e.target.value)}
                 />
             </Box>
-			<SaveIcon color="secondary" type="submit" className='sendbtn' onClick={send}/>
+			<SaveIcon type="submit" className='sendbtn' onClick={send}/>
+			<Alert severity="success" className='alert' style={!isSend ? { display: 'none' } : {}}>
+				<AlertTitle><strong>Success</strong></AlertTitle>Cardio data has been saved successfully.
+			</Alert>
         </div>
     );
 }

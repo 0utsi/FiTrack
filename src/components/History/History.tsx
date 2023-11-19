@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CardioH from "./CardioH";
-import '../../style/history.css';
+import '../../style/history.less';
 import StrengthH from "./StrengthH";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
