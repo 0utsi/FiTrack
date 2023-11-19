@@ -67,3 +67,6 @@ table th {
     text-transform: uppercase;
   }
 }
+.checkbox-label {
+	color: black;
+}

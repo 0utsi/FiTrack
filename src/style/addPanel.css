@@ -9,6 +9,7 @@
 	-webkit-box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
 	-moz-box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
 	box-shadow: 0px 0px 52px -20px rgba(0, 0, 0, 1);
+	color: black;
 }
 
 .checkbox-label {
@@ -38,4 +39,8 @@ button:focus {
 	position: relative;
 	float: right;
 
+}
+
+.checkbox-label {
+	color: black;
 }

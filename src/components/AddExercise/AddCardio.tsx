@@ -43,6 +43,7 @@ const AddCardio = () => {
             >
                 <TextField
                     label="Exercise"
+					type="text"
                     value={exercise}
                     onChange={(e) => setExercise(e.target.value)}
                 />

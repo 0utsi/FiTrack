@@ -70,7 +70,7 @@ const AddStrength = () => {
 			value={date}
 			onChange={(e) => setDate(e.target.value)}
         />
-        <SaveIcon type="submit" />
+        <SaveIcon type="submit" onClick={send} />
       </Box>
     </div>
   );
