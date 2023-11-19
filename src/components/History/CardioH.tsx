@@ -65,7 +65,7 @@ const CardioH = () => {
     setPage(newPage);
   };
 
-if(currentItems)
+if(cardioData)
   return (
      <div className="histPanel">
       <TableContainer component={Paper}>
@@ -74,8 +74,8 @@ if(currentItems)
             <TableRow>
               <TableCell>Exercise</TableCell>
               <TableCell>Distance</TableCell>
-              <TableCell onClick={() => sortBy("duration")}>Duration [min]</TableCell>
-              <TableCell onClick={() => sortBy("date")}>Date</TableCell>
+              <TableCell className="sortColumn" onClick={() => sortBy("duration")}>Duration [min]</TableCell>
+              <TableCell className="sortColumn" onClick={() => sortBy("date")}>Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -91,9 +91,9 @@ if(currentItems)
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 25]}
         component="div"
-        count={currentItems.length}
+        count={cardioData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

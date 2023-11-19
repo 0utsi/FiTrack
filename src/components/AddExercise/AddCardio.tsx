@@ -64,8 +64,8 @@ const AddCardio = () => {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                 />
-                <SaveIcon type="submit" className='sendbtn' onClick={send}/>
             </Box>
+			<SaveIcon color="secondary" type="submit" className='sendbtn' onClick={send}/>
         </div>
     );
 }

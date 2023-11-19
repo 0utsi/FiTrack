@@ -4,40 +4,16 @@
 	align-items: center;
 }
 
+
 .histPanel {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-/* Tables with data */
-table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin:auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding:0;
-  width: fit-content;
-  max-height: 3rem;
-  overflow: scroll;
+.sortColumn:hover {
+	cursor: pointer;
 }
-table tr {
-  border: 1px solid #ddd;
-  padding: 4px;
-}
-table th, table td {
-  padding: 7px;
-  text-align: center;
-  font-size: 12px;
-}
-table th {
-  font-size: 13px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
 
 @media screen and (max-width: 600px) {
   table {
