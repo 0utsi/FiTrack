@@ -10,7 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React from "react";
-import { TablePagination } from "@mui/material";
+import { TablePagination, TableSortLabel } from "@mui/material";
 
 const CardioH = () => {
   const [cardioData, setCardioData] = useState<Cardio[]>();
@@ -74,7 +74,10 @@ if(cardioData)
             <TableRow>
               <TableCell>Exercise</TableCell>
               <TableCell>Distance</TableCell>
-              <TableCell className="sortColumn" onClick={() => sortBy("duration")}>Duration [min]</TableCell>
+              {/* <TableCell className="sortColumn" onClick={() => sortBy("duration")}>Duration [min]</TableCell> */}
+			<TableCell>
+              <TableSortLabel onClick={() => sortBy("duration")}>Duration [min]</TableSortLabel>
+            </TableCell>
               <TableCell className="sortColumn" onClick={() => sortBy("date")}>Date</TableCell>
             </TableRow>
           </TableHead>

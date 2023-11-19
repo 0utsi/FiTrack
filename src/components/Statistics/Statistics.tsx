@@ -29,11 +29,10 @@ if(statisticsData)
 				</Typography>
 			</CardContent>
 		</Card>
-
 		<Card>
 			<CardContent>
 				<Typography component="div">
-					Total Distance Covered
+					Total Distance Travelled
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
 					{statisticsData.totalDistance} [m]
