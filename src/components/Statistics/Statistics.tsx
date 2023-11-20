@@ -9,9 +9,10 @@ const Statistics = () => {
 	const [statisticsData, setStatisticData] = useState<Statistics>()
 
 	useEffect(() => {
-		axios.get('http://localhost:3000/statistics').then(res => {
-			console.log(res.data)
-			setStatisticData(res.data)
+		axios
+			.get('http://localhost:3000/statistics').then(res => {
+				console.log(res.data)
+				setStatisticData(res.data)
 		}).catch(err => { console.log(err)})
 	},[])
 

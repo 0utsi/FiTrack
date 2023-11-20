@@ -15,7 +15,6 @@ const AddCardio = () => {
     const [date, setDate] = useState('')
 
     const send = () => {
-
         axios.post('http://localhost:3000/cardio', {
             "exerciseName": exercise,
             "distance": distance,
