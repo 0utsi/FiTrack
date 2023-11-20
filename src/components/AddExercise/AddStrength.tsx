@@ -22,6 +22,7 @@ const AddStrength = () => {
   const send = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Przygotuj dane dla wielu serii
     const seriesData = sets.map((set) => ({
       repetitions: set.repetitions,
       weight: set.weight,
@@ -51,14 +52,13 @@ const AddStrength = () => {
   const handleAdditionalSetsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAdditionalSets(Number(e.target.value));
 
-    // Aktualizuj dane dla każdego zestawu na podstawie liczby zestawów
     setSets((prevSets) => {
       const newSets = Array.from({ length: Number(e.target.value) }, (_, index) => prevSets[index] || { repetitions: '', weight: '' });
       return newSets;
     });
   };
 
-  const handleSetChange = (index: number, field: string, value: string) => {
+  const handleSetChange = (index: number, field: keyof typeof sets[0], value: string) => {
     setSets((prevSets) => {
       const newSets = [...prevSets];
       newSets[index][field] = value;
@@ -66,11 +66,10 @@ const AddStrength = () => {
     });
   };
 
-  // Generuj dodatkowe pola na podstawie liczby zestawów
   const additionalFields = [];
   for (let i = 0; i < additionalSets; i++) {
     additionalFields.push(
-      <Box key={i} sx={{ marginBottom: -3 }}>
+      <Box key={i} sx={{ marginBottom: 0 }} className='setsField'>
         <TextField
 			label={`Repetitions - Set ${i + 1}`}
 			size='small'
@@ -79,7 +78,7 @@ const AddStrength = () => {
 			onChange={(e) => handleSetChange(i, 'repetitions', e.target.value)}
         />
         <TextField
-			label={`Weight - Set ${i + 1} [kg]`}
+			label={`Weight [kg]`}
 			size='small'
 			type="number"
 			value={sets[i]?.weight || ''}
