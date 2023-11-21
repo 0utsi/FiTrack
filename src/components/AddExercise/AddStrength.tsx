@@ -11,10 +11,8 @@ const AddStrength = () => {
   const [exercise, setExercise] = useState('');
   const [date, setDate] = useState('');
 
-  // Dane dla każdego zestawu
   const [sets, setSets] = useState([
     { repetitions: '', weight: '' },
-    // Dodaj tyle elementów, ile chcesz domyślnie mieć zestawów
   ]);
 
   const [additionalSets, setAdditionalSets] = useState(1);
@@ -22,17 +20,16 @@ const AddStrength = () => {
   const send = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Przygotuj dane dla wielu serii
-    const seriesData = sets.map((set) => ({
-      repetitions: set.repetitions,
-      weight: set.weight,
-    }));
+	const seriesData = sets.map((set) => ({
+		repetitions: parseInt(set.repetitions),
+		weight: parseInt(set.weight),
+	}));
 
     axios
       .post('http://localhost:3000/strength', {
         exerciseName: exercise,
         date: date,
-        series: seriesData,
+        sets: seriesData,
       })
       .then((response) => {
         const id = window.setInterval(() => hideAlert(id), 3000);

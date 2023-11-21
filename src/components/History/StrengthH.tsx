@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
 import {StrengthExercise} from "../../interfaces/strengthExercise.interface";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
@@ -9,13 +9,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import React from "react";
-import { Accordion, AccordionDetails, AccordionSummary, TablePagination, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, IconButton, TablePagination, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StrengthH = () => {
   const [strengthData, setStrengthData] = useState<StrengthExercise[]>();
-  const [params, setParams] = useState({
+  const [id, setId] = useState()
+  const [params] = useState({
     params: {
       'order': "ASC",
       'sortBy': "date",
@@ -29,32 +31,32 @@ const StrengthH = () => {
       .then(response => {
         console.log("data: "+response.data)
         if (response.data) {
-          setStrengthData(response.data);
+			setStrengthData(response.data);
         }
       })
       .catch(error => {
         console.error('Błąd podczas pobierania danych:', error);
       });
-  }, [params]);
+  }, [params, id]);
 
-  const sortBy = (by: string) => {
-    const newOrder = params.params.order === 'ASC' ? 'DESC' : 'ASC';
-    setParams({
-      params: {
-        'order': newOrder,
-        'sortBy': by,
-      },
-    });
-  }
 
   const formatDateString = (dateString: Date) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
 
-  const indexOfLastItem = (page + 1) * rowsPerPage;
-  const indexOfFirstItem = indexOfLastItem - rowsPerPage;
-  const currentItems = strengthData?.slice(indexOfFirstItem, indexOfLastItem);
+  const handleDelete = (id: number) => {
+	setId(id)
+		axios
+			.delete(`http://localhost:3000/strength/${id}`)
+			.then((res) => {
+				console.log('Usunięto rekord o ID:', id, res);
+			})
+			.catch((err) => {
+				console.error('Błąd podczas usuwania:', err);
+			});
+  };
+
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -64,11 +66,11 @@ const StrengthH = () => {
     setPage(newPage);
   };
 
-  const renderSets = (sets: any) => {
-    return sets.map((set: any, index: number) => (
-      <TableRow key={index}>
-        <TableCell>{set.weight}</TableCell>
-        <TableCell>{set.repetitions}</TableCell>
+  const renderSets = (sets: {weight: number, repetitions: number}[]) => {
+    return sets.map((set: {weight: number, repetitions: number}, index: number) => (
+      <TableRow key={index} sx={{ marginBottom: 0.5 }}>
+        <TableCell sx={{ fontSize: 11 }}>{set.weight}</TableCell>
+        <TableCell sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
       </TableRow>
     ));
   };
@@ -77,26 +79,38 @@ const StrengthH = () => {
 		return (
 			<div className="histPanel">
 			{strengthData?.map((item, index) => (
-				<Accordion key={index}>
-				<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel-${index}`} id={`panel-${index}`}>
-					<Typography>{item.exerciseName}</Typography>
-					<Typography fontSize={12}>{formatDateString(item.date)}</Typography>
-				</AccordionSummary>
-				<AccordionDetails>
-					<TableContainer component={Paper}>
-					<Table>
-						<TableHead>
-						<TableRow>
-							<TableCell>Weight [kg]</TableCell>
-							<TableCell>Repetitions</TableCell>
-						</TableRow>
-						</TableHead>
-						<TableBody>
-						{item.sets && item.sets.length > 0 ? renderSets(item.sets) : null}
-						</TableBody>
-					</Table>
-					</TableContainer>
-				</AccordionDetails>
+				<Accordion key={index} sx={{ borderRadius: 3, overflow: 'hidden', marginBottom: 0.5, width: '100%'}}>
+					<AccordionSummary
+						expandIcon={<ExpandMoreIcon />}
+						sx={{
+							minHeight: 20,
+							'& .MuiTypography-root': { fontSize: 13 },
+							justifyContent: 'space-between',
+						}}
+						>
+							<Typography>{item.exerciseName}</Typography>
+							<Typography mt={0} fontSize={10} marginLeft={5} sx={{ marginLeft: 'auto' }}>
+								{formatDateString(item.date)}
+							</Typography>
+					</AccordionSummary>
+					<AccordionDetails sx={{ zIndex: 1000, padding: 0, margin: 0}}>
+					<IconButton onClick={() => handleDelete(item.id)} size="small" sx={{position: 'absolute', right: '0'}}>
+							<FontAwesomeIcon icon={faTrash} />
+						</IconButton>
+						<TableContainer component={Paper} sx={{ margin: 0 }}>
+							<Table size="small">
+							<TableHead>
+								<TableRow>
+								<TableCell  sx={{ fontSize: 12 }}>Weight [kg]</TableCell>
+								<TableCell  sx={{ fontSize: 12 }}>Repetitions</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{item.sets && item.sets.length > 0 ? renderSets(item.sets) : null}
+							</TableBody>
+							</Table>
+						</TableContainer>
+					</AccordionDetails>
 				</Accordion>
 			))}
 			<TablePagination
