@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
-import {StrengthExercise} from "../../interfaces/strengthExercise.interface";
+import StrengthExercise from "../../interfaces/strengthExercise.interface";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StrengthH = () => {
   const [strengthData, setStrengthData] = useState<StrengthExercise[]>();
-  const [id, setId] = useState()
+  const [id, setId] = useState<number>()
   const [params] = useState({
     params: {
       'order': "ASC",
@@ -69,8 +69,9 @@ const StrengthH = () => {
   const renderSets = (sets: {weight: number, repetitions: number}[]) => {
     return sets.map((set: {weight: number, repetitions: number}, index: number) => (
       <TableRow key={index} sx={{ marginBottom: 0.5 }}>
-        <TableCell sx={{ fontSize: 11 }}>{set.weight}</TableCell>
-        <TableCell sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
+		<TableCell size='small' sx={{ fontSize: 11 }}>{index +1}</TableCell>
+		<TableCell size='small' sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
+        <TableCell size='small' sx={{ fontSize: 11 }}>{set.weight}</TableCell>
       </TableRow>
     ));
   };
@@ -79,21 +80,20 @@ const StrengthH = () => {
 		return (
 			<div className="histPanel">
 			{strengthData?.map((item, index) => (
-				<Accordion key={index} sx={{ borderRadius: 3, overflow: 'hidden', marginBottom: 0.5, width: '100%'}}>
+				<Accordion key={index} sx={{ borderRadius: 3, overflow: 'hidden', marginBottom: 0.5, width: '80%'}}>
 					<AccordionSummary
 						expandIcon={<ExpandMoreIcon />}
 						sx={{
 							minHeight: 20,
-							'& .MuiTypography-root': { fontSize: 13 },
 							justifyContent: 'space-between',
 						}}
 						>
-							<Typography>{item.exerciseName}</Typography>
-							<Typography mt={0} fontSize={10} marginLeft={5} sx={{ marginLeft: 'auto' }}>
+							<Typography mt={0} sx={{ fontSize: 14, marginRight: 'auto' }}>{item.exerciseName}</Typography>
+							<Typography mt={0} sx={{ marginLeft: 'auto', fontSize: 11 }}>
 								{formatDateString(item.date)}
 							</Typography>
 					</AccordionSummary>
-					<AccordionDetails sx={{ zIndex: 1000, padding: 0, margin: 0}}>
+					<AccordionDetails sx={{ zIndex: 1000, padding: 0, margin: 0}} >
 					<IconButton onClick={() => handleDelete(item.id)} size="small" sx={{position: 'absolute', right: '0'}}>
 							<FontAwesomeIcon icon={faTrash} />
 						</IconButton>
@@ -101,8 +101,9 @@ const StrengthH = () => {
 							<Table size="small">
 							<TableHead>
 								<TableRow>
-								<TableCell  sx={{ fontSize: 12 }}>Weight [kg]</TableCell>
+								<TableCell  sx={{ fontSize: 12 }}>Set</TableCell>
 								<TableCell  sx={{ fontSize: 12 }}>Repetitions</TableCell>
+								<TableCell  sx={{ fontSize: 12 }}>Weight [kg]</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>

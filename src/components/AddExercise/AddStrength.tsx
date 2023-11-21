@@ -4,7 +4,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import '../../style/addPanel.less';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert, AlertTitle, Grid } from '@mui/material';
 
 const AddStrength = () => {
   const [isSend, setIsSend] = useState(false);
@@ -66,22 +66,24 @@ const AddStrength = () => {
   const additionalFields = [];
   for (let i = 0; i < additionalSets; i++) {
     additionalFields.push(
-      <Box key={i} sx={{ marginBottom: 0 }} className='setsField'>
-        <TextField
-			label={`Repetitions - Set ${i + 1}`}
+		<Box key={i} sx={{ marginBottom: 0, padding: 0 }} className='setsField'>
+		<TextField
+			label={`Reps - Set ${i + 1}`}
 			size='small'
 			type="number"
 			value={sets[i]?.repetitions || ''}
 			onChange={(e) => handleSetChange(i, 'repetitions', e.target.value)}
-        />
-        <TextField
+			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0}}
+		/>
+		<TextField
 			label={`Weight [kg]`}
 			size='small'
 			type="number"
 			value={sets[i]?.weight || ''}
 			onChange={(e) => handleSetChange(i, 'weight', e.target.value)}
-        />
-      </Box>
+			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0}}
+		/>
+		</Box>
     );
   }
 
@@ -113,7 +115,13 @@ const AddStrength = () => {
           value={additionalSets}
           onChange={handleAdditionalSetsChange}
         />
-        {additionalFields}
+		<Grid container spacing={0}>
+			{additionalFields.map((field, index) => (
+			<Grid item key={index + additionalFields.length}>
+				{field}
+			</Grid>
+			))}
+		</Grid>
       </Box>
       <SaveIcon className="sendbtn" type="submit" onClick={send} />
       <Alert
