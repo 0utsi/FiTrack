@@ -13,72 +13,72 @@ const AddStrength = () => {
   const [sets, setSets] = useState([{ repetitions: 0, weight: 0 }]);
   const [additionalSets, setAdditionalSets] = useState(1);
 
-  const send = (e: React.FormEvent) => {
-    e.preventDefault();
+	const send = (e: React.FormEvent) => {
+		e.preventDefault();
 
-    const setsData = sets.map((set) => ({
-      repetitions: set.repetitions || 0,
-      weight: set.weight|| 0,
-    }));
+		const setsData = sets.map((set) => ({
+			repetitions: set.repetitions || 0,
+			weight: set.weight|| 0,
+		}));
 
-    const strengthData = {
-      exerciseName: exercise,
-      date: date,
-      sets: setsData,
-    };
+		const strengthData = {
+			exerciseName: exercise,
+			date: date,
+			sets: setsData,
+		};
 
-    addStrengthData(strengthData).then(() => {
-      setIsSend(true);
-      const id = window.setInterval(() => hideAlert(id), 3000);
-    });
-  };
+		addStrengthData(strengthData).then(() => {
+			setIsSend(true);
+			const id = window.setInterval(() => hideAlert(id), 3000);
+		});
+	};
 
-  const hideAlert = (id: number) => {
-    setIsSend(false);
-    clearInterval(id);
-  };
+	const hideAlert = (id: number) => {
+		setIsSend(false);
+		clearInterval(id);
+	};
 
-  const handleAdditionalSetsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setAdditionalSets(value);
+	const handleAdditionalSetsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = Number(e.target.value);
+		setAdditionalSets(value);
 
-    setSets((prevSets) => {
-      const newSets = Array.from(
-        { length: value },
-        (_, index) => prevSets[index] || { repetitions: '', weight: '' }
-      );
-      return newSets;
-    });
-  };
+		setSets((prevSets) => {
+		const newSets = Array.from(
+			{ length: value },
+			(_, index) => prevSets[index] || { repetitions: '', weight: '' }
+		);
+		return newSets;
+		});
+	};
 
-  const handleSetChange = (index: number, field: keyof typeof sets[0], value: number) => {
-    setSets((prevSets) => {
-      const newSets = [...prevSets];
-      newSets[index][field] = value;
-      return newSets;
-    });
-  };
+	const handleSetChange = (index: number, field: keyof typeof sets[0], value: number) => {
+		setSets((prevSets) => {
+		const newSets = [...prevSets];
+		newSets[index][field] = value;
+		return newSets;
+		});
+	};
 
-  const additionalFields = sets.map((set, index) => (
-    <Grid item key={index} sx={{ marginBottom: 0, padding: 0 }} className='setsField'>
-      <TextField
-        label={`Reps - Set ${index + 1}`}
-        size='small'
-        type="number"
-        value={set.repetitions}
-        onChange={(e) => handleSetChange(index, 'repetitions', Number(e.target.value))}
-        sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
-      />
-      <TextField
-        label={`Weight [kg]`}
-        size='small'
-        type="number"
-        value={set.weight}
-        onChange={(e) => handleSetChange(index, 'weight', Number(e.target.value))}
-        sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
-      />
-    </Grid>
-  ));
+	const additionalFields = sets.map((set, index) => (
+		<Grid item key={index} sx={{ marginBottom: 0, padding: 0 }} className='setsField'>
+		<TextField
+			label={`Reps - Set ${index + 1}`}
+			size='small'
+			type="number"
+			value={set.repetitions}
+			onChange={(e) => handleSetChange(index, 'repetitions', Number(e.target.value))}
+			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
+		/>
+		<TextField
+			label={`Weight [kg]`}
+			size='small'
+			type="number"
+			value={set.weight}
+			onChange={(e) => handleSetChange(index, 'weight', Number(e.target.value))}
+			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
+		/>
+		</Grid>
+	));
 
   return (
     <div className="panel">

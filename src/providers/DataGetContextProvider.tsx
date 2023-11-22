@@ -8,7 +8,7 @@ import StatisticsI from "../interfaces/statistics.interface";
 interface DataContextProps {
   cardioData: Cardio[];
   strengthData: StrengthExercise[];
-  statisticsData: StatisticsI[] | undefined;
+  statisticsData: StatisticsI[];
   update: () => void;
 }
 
@@ -22,10 +22,10 @@ const GetDataContextCtx = createContext<DataContextProps>({
 export default function GetDataContextProvider({ children }: { children: React.ReactNode }) {
 	const [cardioData, setCardioData] = useState<Cardio[]>([]);
 	const [strengthData, setStrengthData] = useState<StrengthExercise[]>([]);
-	const [statisticsData, setStatisticsData] = useState<Statistics[]>();
+	const [statisticsData, setStatisticsData] = useState<Statistics[]>([]);
 	const [isUpdate, setIsUpdate] = useState(true);
-	console.log(strengthData)
 	useEffect(() => {
+
 		const fetchCardio = async () => {
 			try {
 				const response = await axios.get('http://localhost:3000/cardio');
@@ -57,7 +57,7 @@ export default function GetDataContextProvider({ children }: { children: React.R
 		fetchCardio();
 		fetchStrength();
 		fetchStatistics();
-	}, [isUpdate]);
+	},[]);
 
 	const update = () => {
 		setIsUpdate(!isUpdate);

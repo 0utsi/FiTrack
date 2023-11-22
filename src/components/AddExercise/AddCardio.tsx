@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import { Alert, AlertTitle } from '@mui/material';
 import '../../style/addPanel.less'
 import { PostDataContextCtx } from '../../providers/DataPostContextProvider';
-import { GetDataContextCtx } from '../../providers/DataGetContextProvider';
 
 const AddCardio = () => {
 	const [isSend, setIsSend] = useState(false)
@@ -15,7 +14,7 @@ const AddCardio = () => {
     const [duration, setDuration] = useState(0)
     const [date, setDate] = useState('')
 	const {addCardioData} = useContext(PostDataContextCtx)
-	const {update} = useContext(GetDataContextCtx)
+
     const send = () => {
 
 		const cardioData = {
@@ -29,7 +28,6 @@ const AddCardio = () => {
 			console.log("success: " + res)
 			setIsSend(true)
 			const id = window.setInterval(() => hideAlert(id), 3000);
-			update()
 		})
 
     };

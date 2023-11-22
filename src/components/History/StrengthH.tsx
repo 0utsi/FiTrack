@@ -17,18 +17,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const StrengthH = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const {strengthData, update} = useContext(GetDataContextCtx)
+  const {strengthData} = useContext(GetDataContextCtx)
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id?: number) => {
+	if (id !== undefined) {
 		axios
 			.delete(`http://localhost:3000/strength/${id}`)
 			.then((res) => {
-				update()
 				console.log('Usunięto rekord o ID:', id, res);
 			})
 			.catch((err) => {
 				console.error('Błąd podczas usuwania:', err);
 			});
+	}
+
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
