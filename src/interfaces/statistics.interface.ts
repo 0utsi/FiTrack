@@ -1,7 +1,7 @@
-interface Statistics {
+interface StatisticsI {
 	totalDistance: number;
 	totalWeight: number;
 
   }
 
-export default Statistics;
+export default StatisticsI;

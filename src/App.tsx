@@ -4,7 +4,7 @@ import NavBar from './components/Navbar';
 import { Route,Routes } from 'react-router-dom';
 import AddPanel from './components/AddExercise/AddPanel';
 import Statistics from './components/Statistics/Statistics';
-import { DataContextProvider } from './providers/DataContextProvider';
+import { DataContextProvider } from './providers/get.DataContextProvider';
 function App() {
 
 	return (

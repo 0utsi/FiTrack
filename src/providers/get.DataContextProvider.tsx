@@ -4,9 +4,9 @@ import StrengthExercise from "../interfaces/strengthExercise.interface";
 import Statistics from "../interfaces/statistics.interface";
 
 interface DataContextProps {
-  cardioData?: Cardio[];
-  strengthData?: StrengthExercise[];
-  statisticsData?: Statistics[];
+  cardioData: Cardio[];
+  strengthData: StrengthExercise[];
+  statisticsData: Statistics[];
   update: () => void;
 }
 
@@ -15,7 +15,7 @@ const DataContextCtx = createContext<DataContextProps>({
 	strengthData: [],
 	statisticsData: [],
 	update: () => {},
-});
+  });
 
 function DataContextProvider({ children }: { children: React.ReactNode }) {
 	const [cardioData, setCardioData] = useState<Cardio[]>([]);

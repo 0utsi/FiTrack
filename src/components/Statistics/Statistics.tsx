@@ -1,15 +1,14 @@
-import { DataContextCtx } from "../../providers/DataContextProvider";
+import { DataContextCtx } from "../../providers/get.DataContextProvider";
 import { useContext } from "react";
-import Statistics from "../../interfaces/statistics.interface";
 import '../../style/statistics.less'
 import { Card, CardContent, Typography } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeightHanging, faPersonRunning } from '@fortawesome/free-solid-svg-icons';
 
 const Statistics = () => {
-	const { statisticsData }: { statisticsData?: Statistics[] } = useContext(DataContextCtx);
+	const  { statisticsData } = useContext(DataContextCtx);
+	const { totalWeight, totalDistance} = statisticsData;
 
-if(statisticsData)
 	return (
 		<div className="statistics">
 		<Card>
@@ -18,7 +17,7 @@ if(statisticsData)
 					Total Weight Lifted
 				</Typography>
 				<Typography variant="caption" color="text.secondary" display="flex" alignItems="center" >
-					<span>{statisticsData.totalWeight / 1000} [T]</span>
+					<span>{totalWeight / 1000} [T]</span>
 					<FontAwesomeIcon icon={faWeightHanging} style={{ marginLeft: 'auto', fontSize: '17px'  }} />
 				</Typography>
 			</CardContent>
@@ -29,13 +28,14 @@ if(statisticsData)
 					Total Distance Travelled
 				</Typography>
 				<Typography variant="caption" color="text.secondary" display="flex" alignItems="center" >
-					<span>{statisticsData.totalDistance / 1000} [KM]</span>
+					<span>{totalDistance / 1000} [KM]</span>
 					<FontAwesomeIcon icon={faPersonRunning} style={{ marginLeft: 'auto', fontSize: '20px' }} />
 
 				</Typography>
 			</CardContent>
 		</Card>
 	</div>
+
 )}
 
 export default Statistics;

@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import { TablePagination } from "@mui/material";
-import { DataContextCtx } from "../../providers/DataContextProvider";
+import { DataContextCtx } from "../../providers/get.DataContextProvider";
 
 const CardioH = () => {
 	const {cardioData} = useContext(DataContextCtx)

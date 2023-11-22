@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios"
-import { DataContextCtx } from "../../providers/DataContextProvider";
+import { DataContextCtx } from "../../providers/get.DataContextProvider";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
