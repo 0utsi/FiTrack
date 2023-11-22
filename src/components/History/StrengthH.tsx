@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios"
-import StrengthExercise from "../../interfaces/strengthExercise.interface";
+import { DataContextCtx } from "../../providers/DataContextProvider";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,41 +15,16 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StrengthH = () => {
-  const [strengthData, setStrengthData] = useState<StrengthExercise[]>();
-  const [id, setId] = useState<number>()
-  const [params] = useState({
-    params: {
-      'order': "ASC",
-      'sortBy': "date",
-    },
-  });
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const {strengthData, update} = useContext(DataContextCtx)
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/strength', params)
-      .then(response => {
-        console.log("data: "+response.data)
-        if (response.data) {
-			setStrengthData(response.data);
-        }
-      })
-      .catch(error => {
-        console.error('Błąd podczas pobierania danych:', error);
-      });
-  }, [params, id]);
-
-
-  const formatDateString = (dateString: Date) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
 
   const handleDelete = (id: number) => {
-	setId(id)
 		axios
 			.delete(`http://localhost:3000/strength/${id}`)
 			.then((res) => {
+				update()
 				console.log('Usunięto rekord o ID:', id, res);
 			})
 			.catch((err) => {
@@ -67,7 +42,8 @@ const StrengthH = () => {
   };
 
   const renderSets = (sets: {weight: number, repetitions: number}[]) => {
-    return sets.map((set: {weight: number, repetitions: number}, index: number) => (
+	console.log(sets)
+    return sets.reverse().map((set: {weight: number, repetitions: number}, index: number) => (
       <TableRow key={index} sx={{ marginBottom: 0.5 }}>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{index +1}</TableCell>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
@@ -90,7 +66,7 @@ const StrengthH = () => {
 						>
 							<Typography mt={0} sx={{ fontSize: 14, marginRight: 'auto' }}>{item.exerciseName}</Typography>
 							<Typography mt={0} sx={{ marginLeft: 'auto', fontSize: 11 }}>
-								{formatDateString(item.date)}
+								{(new Date(item.date).toLocaleDateString())}
 							</Typography>
 					</AccordionSummary>
 					<AccordionDetails sx={{ zIndex: 1000, padding: 0, margin: 0}} >

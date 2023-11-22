@@ -7,7 +7,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-const History = () => {
+const HistoryMain = () => {
   const [showCardioHistory, setShowCardioHistory] = useState(true);
 
   return (
@@ -33,4 +33,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default HistoryMain;

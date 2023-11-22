@@ -1,23 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import '../../style/statistics.less'
+import { DataContextCtx } from "../../providers/DataContextProvider";
+import { useContext } from "react";
 import Statistics from "../../interfaces/statistics.interface";
+import '../../style/statistics.less'
 import { Card, CardContent, Typography } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeightHanging, faPersonRunning } from '@fortawesome/free-solid-svg-icons';
 
 const Statistics = () => {
-
-	const [statisticsData, setStatisticData] = useState<Statistics>()
-
-	useEffect(() => {
-		axios
-			.get('http://localhost:3000/statistics').then(res => {
-				console.log(res.data)
-				setStatisticData(res.data)
-		}).catch(err => { console.log(err)})
-	},[])
-
+	const { statisticsData }: { statisticsData?: Statistics[] } = useContext(DataContextCtx);
 
 if(statisticsData)
 	return (

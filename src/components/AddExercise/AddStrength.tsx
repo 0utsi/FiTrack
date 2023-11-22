@@ -124,16 +124,16 @@ const AddStrength = () => {
 		</Grid>
       </Box>
       <SaveIcon className="sendbtn" type="submit" onClick={send} />
-      <Alert
-        severity="success"
-        className="alert"
-        style={!isSend ? { display: 'none' } : {}}
-      >
-        <AlertTitle>
-          <strong>Success</strong>
-        </AlertTitle>
-        Strength data has been saved successfully.
-      </Alert>
+		<Alert
+			severity="success"
+			className="alert"
+			style={!isSend ? { display: 'none' } : {}}
+		>
+			<AlertTitle>
+				<strong>Success</strong>
+			</AlertTitle>
+			Strength data has been saved successfully.
+		</Alert>
     </div>
   );
 };

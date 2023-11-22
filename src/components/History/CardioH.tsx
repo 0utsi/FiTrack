@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Cardio from "../../interfaces/Icardio";
+import { useContext, useState } from "react";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,60 +8,26 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React from "react";
-import { TablePagination, TableSortLabel } from "@mui/material";
+import { TablePagination } from "@mui/material";
+import { DataContextCtx } from "../../providers/DataContextProvider";
 
 const CardioH = () => {
-  const [cardioData, setCardioData] = useState<Cardio[]>();
-  const [params, setParams] = useState({
-    params: {
-      'order': "ASC",
-      'sortBy': "date",
-    },
-  })
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+	const {cardioData} = useContext(DataContextCtx)
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/cardio', params)
-      .then(response => {
-        console.log(response.data)
-        if (response.data) {
-          setCardioData(response.data);
-        }
-      })
-      .catch(error => {
-        console.error('Błąd podczas pobierania danych:', error);
-      });
-  }, [params]);
+	const indexOfLastItem = (page + 1) * rowsPerPage;
+	const indexOfFirstItem = indexOfLastItem - rowsPerPage;
+	const currentItems = cardioData?.slice(indexOfFirstItem, indexOfLastItem);
 
-  const sortBy = (by: string) => {
-    const newOrder = params.params.order === 'ASC' ? 'DESC' : 'ASC';
-    setParams({
-      params: {
-        'order': newOrder,
-        'sortBy': by,
-      },
-    });
-  }
+	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setRowsPerPage(+event.target.value);
+		setPage(0);
+	};
 
-  const formatDateString = (dateString: Date) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
-
-  const indexOfLastItem = (page + 1) * rowsPerPage;
-  const indexOfFirstItem = indexOfLastItem - rowsPerPage;
-  const currentItems = cardioData?.slice(indexOfFirstItem, indexOfLastItem);
-
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+	const handleChangePage = (_event: unknown, newPage: number) => {
+		setPage(newPage);
+	};
 
 if(cardioData)
   return (
@@ -73,12 +37,9 @@ if(cardioData)
           <TableHead>
             <TableRow>
               <TableCell>Exercise</TableCell>
-              <TableCell>Distance</TableCell>
-              {/* <TableCell className="sortColumn" onClick={() => sortBy("duration")}>Duration [min]</TableCell> */}
-			<TableCell>
-              <TableSortLabel onClick={() => sortBy("duration")}>Duration [min]</TableSortLabel>
-            </TableCell>
-              <TableCell className="sortColumn" onClick={() => sortBy("date")}>Date</TableCell>
+              <TableCell>Distance [m]</TableCell>
+              <TableCell className="sortColumn" >Duration [min]</TableCell>
+              <TableCell className="sortColumn">Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,7 +48,7 @@ if(cardioData)
                 <TableCell>{item.exerciseName}</TableCell>
                 <TableCell>{item.distance}</TableCell>
                 <TableCell>{item.duration}</TableCell>
-                <TableCell>{formatDateString(item.date)}</TableCell>
+                <TableCell>{(new Date(item.date).toLocaleDateString())}</TableCell>
               </TableRow>
             ))}
           </TableBody>
