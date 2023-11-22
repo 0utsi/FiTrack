@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { GetDataContextCtx } from "../../providers/DataGetContextProvider";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,10 +10,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import { TablePagination } from "@mui/material";
-import { DataContextCtx } from "../../providers/get.DataContextProvider";
+
 
 const CardioH = () => {
-	const {cardioData} = useContext(DataContextCtx)
+	const {cardioData} = useContext(GetDataContextCtx)
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 

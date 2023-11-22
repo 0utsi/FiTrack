@@ -1,4 +1,4 @@
-import { DataContextCtx } from "../../providers/get.DataContextProvider";
+import { GetDataContextCtx } from "../../providers/DataGetContextProvider";
 import { useContext } from "react";
 import '../../style/statistics.less'
 import { Card, CardContent, Typography } from "@mui/material";
@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeightHanging, faPersonRunning } from '@fortawesome/free-solid-svg-icons';
 
 const Statistics = () => {
-	const  { statisticsData } = useContext(DataContextCtx);
-	const { totalWeight, totalDistance} = statisticsData;
+	const  { statisticsData, update } = useContext(GetDataContextCtx);
+	const { totalWeight, totalDistance } = statisticsData;
 
+	update()
 	return (
 		<div className="statistics">
 		<Card>

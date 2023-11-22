@@ -1,9 +1,9 @@
 interface Cardio {
-	id: number;
+	id?: number;
 	exerciseName: string;
 	distance: number;
 	duration: number;
-	date: Date;
+	date: string;
   }
 
 export default Cardio;
