@@ -1,10 +1,10 @@
 import StrengthExercise  from './strengthExercise.interface';
 
 interface StrengthSet {
-  id: number;
+  id?: number;
   weight: number;
   repetitions: number;
-  strengthExercise: StrengthExercise;
+  strengthExercise?: StrengthExercise;
 }
 
 export default StrengthSet;

@@ -1,8 +1,8 @@
 import  StrengthSet  from "./strengthSet.interface";
 interface StrengthExercise {
-	id: number;
+	id?: number;
 	exerciseName: string;
-	date: Date;
+	date: string;
 	sets: StrengthSet[];
   }
 

@@ -1,44 +1,36 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
-import '../../style/addPanel.less';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, AlertTitle, Grid } from '@mui/material';
+import { PostDataContextCtx } from '../../providers/DataPostContextProvider';
 
 const AddStrength = () => {
   const [isSend, setIsSend] = useState(false);
   const [exercise, setExercise] = useState('');
   const [date, setDate] = useState('');
-
-  const [sets, setSets] = useState([
-    { repetitions: '', weight: '' },
-  ]);
-
+  const { addStrengthData } = useContext(PostDataContextCtx);
+  const [sets, setSets] = useState([{ repetitions: 0, weight: 0 }]);
   const [additionalSets, setAdditionalSets] = useState(1);
 
   const send = (e: React.FormEvent) => {
     e.preventDefault();
 
-	const seriesData = sets.map((set) => ({
-		repetitions: parseInt(set.repetitions),
-		weight: parseInt(set.weight),
-	}));
+    const setsData = sets.map((set) => ({
+      repetitions: set.repetitions || 0,
+      weight: set.weight|| 0,
+    }));
 
-    axios
-      .post('http://localhost:3000/strength', {
-        exerciseName: exercise,
-        date: date,
-        sets: seriesData,
-      })
-      .then((response) => {
-        const id = window.setInterval(() => hideAlert(id), 3000);
-        setIsSend(true);
-        console.log('Dane zostały wysłane', response.data);
-      })
-      .catch((error) => {
-        console.error('Błąd podczas wysyłania danych:', error);
-      });
+    const strengthData = {
+      exerciseName: exercise,
+      date: date,
+      sets: setsData,
+    };
+
+    addStrengthData(strengthData).then(() => {
+      setIsSend(true);
+      const id = window.setInterval(() => hideAlert(id), 3000);
+    });
   };
 
   const hideAlert = (id: number) => {
@@ -47,15 +39,19 @@ const AddStrength = () => {
   };
 
   const handleAdditionalSetsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAdditionalSets(Number(e.target.value));
+    const value = Number(e.target.value);
+    setAdditionalSets(value);
 
     setSets((prevSets) => {
-      const newSets = Array.from({ length: Number(e.target.value) }, (_, index) => prevSets[index] || { repetitions: '', weight: '' });
+      const newSets = Array.from(
+        { length: value },
+        (_, index) => prevSets[index] || { repetitions: '', weight: '' }
+      );
       return newSets;
     });
   };
 
-  const handleSetChange = (index: number, field: keyof typeof sets[0], value: string) => {
+  const handleSetChange = (index: number, field: keyof typeof sets[0], value: number) => {
     setSets((prevSets) => {
       const newSets = [...prevSets];
       newSets[index][field] = value;
@@ -63,29 +59,26 @@ const AddStrength = () => {
     });
   };
 
-  const additionalFields = [];
-  for (let i = 0; i < additionalSets; i++) {
-    additionalFields.push(
-		<Box key={i} sx={{ marginBottom: 0, padding: 0 }} className='setsField'>
-		<TextField
-			label={`Reps - Set ${i + 1}`}
-			size='small'
-			type="number"
-			value={sets[i]?.repetitions || ''}
-			onChange={(e) => handleSetChange(i, 'repetitions', e.target.value)}
-			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0}}
-		/>
-		<TextField
-			label={`Weight [kg]`}
-			size='small'
-			type="number"
-			value={sets[i]?.weight || ''}
-			onChange={(e) => handleSetChange(i, 'weight', e.target.value)}
-			sx={{ fontSize: 9, padding: 0, width: 10, margin: 0}}
-		/>
-		</Box>
-    );
-  }
+  const additionalFields = sets.map((set, index) => (
+    <Grid item key={index} sx={{ marginBottom: 0, padding: 0 }} className='setsField'>
+      <TextField
+        label={`Reps - Set ${index + 1}`}
+        size='small'
+        type="number"
+        value={set.repetitions}
+        onChange={(e) => handleSetChange(index, 'repetitions', Number(e.target.value))}
+        sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
+      />
+      <TextField
+        label={`Weight [kg]`}
+        size='small'
+        type="number"
+        value={set.weight}
+        onChange={(e) => handleSetChange(index, 'weight', Number(e.target.value))}
+        sx={{ fontSize: 9, padding: 0, width: 10, margin: 0 }}
+      />
+    </Grid>
+  ));
 
   return (
     <div className="panel">
@@ -115,25 +108,21 @@ const AddStrength = () => {
           value={additionalSets}
           onChange={handleAdditionalSetsChange}
         />
-		<Grid container spacing={0}>
-			{additionalFields.map((field, index) => (
-			<Grid item key={index + additionalFields.length}>
-				{field}
-			</Grid>
-			))}
-		</Grid>
+        <Grid container spacing={0}>
+          {additionalFields}
+        </Grid>
       </Box>
       <SaveIcon className="sendbtn" type="submit" onClick={send} />
-		<Alert
-			severity="success"
-			className="alert"
-			style={!isSend ? { display: 'none' } : {}}
-		>
-			<AlertTitle>
-				<strong>Success</strong>
-			</AlertTitle>
-			Strength data has been saved successfully.
-		</Alert>
+      <Alert
+        severity="success"
+        className="alert"
+        style={!isSend ? { display: 'none' } : {}}
+      >
+        <AlertTitle>
+          <strong>Success</strong>
+        </AlertTitle>
+        Strength data has been saved successfully.
+      </Alert>
     </div>
   );
 };

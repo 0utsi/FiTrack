@@ -20,18 +20,14 @@ const PostDataContextCtx = createContext<PostDataContextCtxProps>({
 export default function DataPostContextProvider({ children }: { children: ReactNode }) {
 
 		const addStrengthData = async (data: StrengthExercise) => {
-			try {
-			const response = await axios.post('http://localhost:3000/strength', data);
-
-			if (response.status !== 200) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-
-			console.log('Dane zostały wysłane', response.data);
-			} catch (error) {
-			console.error('Błąd podczas wysyłania danych:', error);
-			throw error;
-			}
+			axios
+				.post('http://localhost:3000/strength', data)
+				.then((response) => {
+					console.log('Dane zostały wysłane', response.data);
+				})
+				.catch((error) => {
+					console.error('Błąd podczas wysyłania danych:', error);
+				});
 		};
 
 		const addCardioData = async (data: Cardio) => {

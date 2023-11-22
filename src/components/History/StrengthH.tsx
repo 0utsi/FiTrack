@@ -42,7 +42,7 @@ const StrengthH = () => {
 
   const renderSets = (sets: {weight: number, repetitions: number}[]) => {
 	console.log(sets)
-    return sets.reverse().map((set: {weight: number, repetitions: number}, index: number) => (
+    return sets.map((set: {weight: number, repetitions: number}, index: number) => (
       <TableRow key={index} sx={{ marginBottom: 0.5 }}>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{index +1}</TableCell>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
@@ -69,7 +69,7 @@ const StrengthH = () => {
 							</Typography>
 					</AccordionSummary>
 					<AccordionDetails sx={{ zIndex: 1000, padding: 0, margin: 0}} >
-					<IconButton onClick={() => handleDelete(item.id)} size="small" sx={{position: 'absolute', right: '0'}}>
+						<IconButton onClick={() => handleDelete(item.id)} size="small" sx={{position: 'absolute', right: '0'}}>
 							<FontAwesomeIcon icon={faTrash} />
 						</IconButton>
 						<TableContainer component={Paper} sx={{ margin: 0 }}>
