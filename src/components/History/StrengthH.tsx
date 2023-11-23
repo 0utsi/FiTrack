@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios"
-import { GetDataContextCtx } from "../../providers/DataGetContextProvider";
+import { DataContextCtx } from "../../providers/DataContextProvider";
 import '../../style/history.less'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const StrengthH = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const {strengthData} = useContext(GetDataContextCtx)
+  const {strengthData} = useContext(DataContextCtx)
 
   const handleDelete = (id?: number) => {
 	if (id !== undefined) {

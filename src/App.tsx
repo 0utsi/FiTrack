@@ -4,13 +4,12 @@ import NavBar from './components/Navbar';
 import { Route,Routes } from 'react-router-dom';
 import AddPanel from './components/AddExercise/AddPanel';
 import Statistics from './components/Statistics/Statistics';
-import { GetDataContextProvider } from './providers/DataGetContextProvider';
-import  PostDataContextProvider  from './providers/DataPostContextProvider'
+import { GetDataContextProvider } from './providers/DataContextProvider';
+
 function App() {
 
 	return (
 	<GetDataContextProvider>
-		<PostDataContextProvider>
 			<div className='App'>
 				<NavBar/>
 					<div>
@@ -21,7 +20,6 @@ function App() {
 					</Routes>
 					</div>
 			</div>
-		</PostDataContextProvider>
 	</GetDataContextProvider>
 		);
 }

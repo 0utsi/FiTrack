@@ -3,13 +3,13 @@ import SaveIcon from '@mui/icons-material/Save';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, AlertTitle, Grid } from '@mui/material';
-import { PostDataContextCtx } from '../../providers/DataPostContextProvider';
+import { DataContextCtx } from '../../providers/DataContextProvider';
 
 const AddStrength = () => {
   const [isSend, setIsSend] = useState(false);
   const [exercise, setExercise] = useState('');
   const [date, setDate] = useState('');
-  const { addStrengthData } = useContext(PostDataContextCtx);
+  const { addStrengthData } = useContext(DataContextCtx);
   const [sets, setSets] = useState([{ repetitions: 0, weight: 0 }]);
   const [additionalSets, setAdditionalSets] = useState(1);
 

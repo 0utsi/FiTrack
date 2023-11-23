@@ -9,13 +9,21 @@ interface DataContextProps {
   cardioData: Cardio[];
   strengthData: StrengthExercise[];
   statisticsData: StatisticsI[];
+  addStrengthData: (data: StrengthExercise) => Promise<void>;
+  addCardioData: (data: Cardio) => Promise<void>;
   update: () => void;
 }
 
-const GetDataContextCtx = createContext<DataContextProps>({
+const DataContextCtx = createContext<DataContextProps>({
 	cardioData: [],
 	strengthData: [],
 	statisticsData: [],
+	addStrengthData: async () => {
+		return Promise.resolve();
+	},
+	addCardioData: async () => {
+		return Promise.resolve();
+	},
 	update: () => {},
 });
 
@@ -59,22 +67,45 @@ export default function GetDataContextProvider({ children }: { children: React.R
 		fetchStatistics();
 	},[]);
 
+	const addStrengthData = async (data: StrengthExercise) => {
+		axios
+			.post('http://localhost:3000/strength', data)
+			.then((response) => {
+				console.log('Dane zostały wysłane', response.data);
+			})
+			.catch((error) => {
+				console.error('Błąd podczas wysyłania danych:', error);
+			});
+	};
+
+	const addCardioData = async (data: Cardio) => {
+		axios.post('http://localhost:3000/cardio', data)
+			.then(response => {
+				console.log('Dane zostały wysłane', response.data);
+			})
+			.catch(error => {
+				console.error('Błąd podczas wysyłania danych:', error);
+			});
+	};
+
 	const update = () => {
 		setIsUpdate(!isUpdate);
 	};
 
 	return (
-		<GetDataContextCtx.Provider
+		<DataContextCtx.Provider
 			value={{
 				cardioData,
 				strengthData,
 				statisticsData,
+				addStrengthData,
+				addCardioData,
 				update,
 			}}
 		>
 			{children}
-		</GetDataContextCtx.Provider>
+		</DataContextCtx.Provider>
 	);
 }
 
-export { GetDataContextCtx, GetDataContextProvider };
+export { DataContextCtx, GetDataContextProvider };

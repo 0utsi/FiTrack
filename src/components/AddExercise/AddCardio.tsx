@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, AlertTitle } from '@mui/material';
 import '../../style/addPanel.less'
-import { PostDataContextCtx } from '../../providers/DataPostContextProvider';
+import { DataContextCtx } from '../../providers/DataContextProvider';
 
 const AddCardio = () => {
 	const [isSend, setIsSend] = useState(false)
@@ -13,7 +13,7 @@ const AddCardio = () => {
     const [distance, setDistance] = useState(0)
     const [duration, setDuration] = useState(0)
     const [date, setDate] = useState('')
-	const {addCardioData} = useContext(PostDataContextCtx)
+	const {addCardioData} = useContext(DataContextCtx)
 
     const send = () => {
 
