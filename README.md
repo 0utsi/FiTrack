@@ -1,27 +1,33 @@
-# React + TypeScript + Vite
+## Fitness Tracker App (front-end)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Fitness Tracker App is a web application built using React with Vite as the build tool. It serves as a comprehensive tool for tracking and managing your workout data, offering features for cardio and strength exercises, data visualization, and statistics.
 
-Currently, two official plugins are available:
+### Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Cardio Exercise Tracking
 
-## Expanding the ESLint configuration
+The app allows users to log their cardio workouts, including details such as exercise name, distance, duration, and date. This information is stored and can be easily viewed, edited, or deleted.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Strength Exercise Tracking
 
-- Configure the top-level `parserOptions` property like this:
+Users can also log their strength training sessions, specifying the exercise name, date, and sets information, including repetitions and weight. The app provides a user-friendly interface for managing and visualizing strength training data.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+#### Data Statistics
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The Statistics section of the app presents insightful data visualizations, showcasing total weight lifted and total distance traveled. These statistics are dynamically updated based on the user's input and provide a quick overview of their overall progress.
+
+### Technology Stack
+
+- **React with Vite:** The application is built using the React framework, and Vite is employed as the build tool to enhance development speed.
+- **Material-UI:** Material-UI components are utilized for a clean and modern user interface design.
+- **Axios:** Data is fetched and updated on the server using Axios for asynchronous HTTP requests.
+- **Context API and Providers:** Context API is used for state management, providing a centralized way to share data between components without excessive prop drilling.
+
+### Usage
+
+1. Clone the repository: `git clone https://github.com/your-account/your-repo.git`
+2. Navigate to the project directory: `cd your-repo`
+3. Install dependencies: `npm install`
+4. Run the application: `npm run dev`
+
+Visit [http://localhost:3000](http://localhost:3000) in your browser to explore the Fitness Tracker App.
