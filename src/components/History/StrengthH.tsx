@@ -44,7 +44,7 @@ const StrengthH = () => {
 
   const renderSets = (sets: {weight: number, repetitions: number}[]) => {
 	console.log(sets)
-    return sets.map((set: {weight: number, repetitions: number}, index: number) => (
+    return sets.reverse().map((set: {weight: number, repetitions: number}, index: number) => (
       <TableRow key={index} sx={{ marginBottom: 0.5 }}>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{index +1}</TableCell>
 		<TableCell size='small' sx={{ fontSize: 11 }}>{set.repetitions}</TableCell>
@@ -92,7 +92,7 @@ const StrengthH = () => {
 				</Accordion>
 			))}
 			<TablePagination
-				rowsPerPageOptions={[10, 25]}
+				rowsPerPageOptions={[5, 10]}
 				component="div"
 				count={strengthData?.length || 0}
 				rowsPerPage={rowsPerPage}
