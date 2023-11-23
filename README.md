@@ -21,6 +21,7 @@ The Statistics section of the app presents insightful data visualizations, showc
 - **React with Vite:** The application is built using the React framework, and Vite is employed as the build tool to enhance development speed.
 - **Material-UI:** Material-UI components are utilized for a clean and modern user interface design.
 - **Axios:** Data is fetched and updated on the server using Axios for asynchronous HTTP requests.
+- **Context API and Providers:** Context API is used for state management, providing a centralized way to share data between components without excessive prop drilling.
 
 ### Usage
 
