@@ -9,7 +9,7 @@ const AddStrength = () => {
   const [isSend, setIsSend] = useState(false);
   const [exercise, setExercise] = useState('');
   const [date, setDate] = useState('');
-  const { addStrengthData } = useContext(DataContextCtx);
+  const { addStrengthData, update } = useContext(DataContextCtx);
   const [sets, setSets] = useState([{ repetitions: 0, weight: 0 }]);
   const [additionalSets, setAdditionalSets] = useState(1);
 
@@ -28,8 +28,9 @@ const AddStrength = () => {
 		};
 
 		addStrengthData(strengthData).then(() => {
-			setIsSend(true);
 			const id = window.setInterval(() => hideAlert(id), 3000);
+			setIsSend(true);
+			update()
 		});
 	};
 

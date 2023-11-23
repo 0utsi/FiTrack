@@ -46,7 +46,6 @@ export default function GetDataContextProvider({ children }: { children: React.R
 		const fetchStrength = async () => {
 			try {
 				const response = await axios.get('http://localhost:3000/strength');
-				console.log("providerGet"+response.data )
 				setStrengthData(response.data);
 			} catch (error) {
 				console.error('Błąd pobierania danych 2:', error);
@@ -65,7 +64,7 @@ export default function GetDataContextProvider({ children }: { children: React.R
 		fetchCardio();
 		fetchStrength();
 		fetchStatistics();
-	},[]);
+	},[isUpdate]);
 
 	const addStrengthData = async (data: StrengthExercise) => {
 		axios

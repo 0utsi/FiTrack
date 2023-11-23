@@ -24,10 +24,9 @@ const AddCardio = () => {
             "date": date
         }
 
-		addCardioData(cardioData).then((res) => {
-			console.log("success: " + res)
-			setIsSend(true)
+		addCardioData(cardioData).then(() => {
 			const id = window.setInterval(() => hideAlert(id), 3000);
+			setIsSend(true)
 		})
 
     };

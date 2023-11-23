@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import '../style/navbar.less'
+import { useContext } from "react";
+import { DataContextCtx } from "../providers/DataContextProvider";
 
 const NavBar = () => {
-
+	const { update } = useContext(DataContextCtx)
+	update()
   return (
     <div className='navbar'>
       <div className='route'>
